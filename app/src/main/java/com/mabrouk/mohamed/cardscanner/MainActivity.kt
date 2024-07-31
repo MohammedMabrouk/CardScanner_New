@@ -45,3 +45,23 @@ fun GreetingPreview() {
         Greeting("Android")
     }
 }
+
+
+// Plan
+
+
+/*
+* Screens :
+* (1) Scan
+* (2) Operator
+* (3) Dial
+*
+*
+*
+*
+*
+*
+* possible addons:
+* ارقام الاختصارات
+*
+* */
