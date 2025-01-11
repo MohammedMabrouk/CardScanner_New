@@ -10,6 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import com.mabrouk.mohamed.cardscanner.ui.theme.CardScanner_NewTheme
 
@@ -38,7 +39,13 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     )
 }
 
-@Preview(showBackground = true)
+@Preview(
+    showBackground = true,
+    device = Devices.PIXEL,
+    name = "test",
+    showSystemUi = true
+)
+
 @Composable
 fun GreetingPreview() {
     CardScanner_NewTheme {
@@ -47,9 +54,10 @@ fun GreetingPreview() {
 }
 
 
+
 // Plan
 
-
+// todo: fix app icon 
 /*
 * Screens :
 * (1) Scan
@@ -63,5 +71,8 @@ fun GreetingPreview() {
 *
 * possible addons:
 * ارقام الاختصارات
+* push notifications
+* analytics
+* crashlytics
 *
 * */
