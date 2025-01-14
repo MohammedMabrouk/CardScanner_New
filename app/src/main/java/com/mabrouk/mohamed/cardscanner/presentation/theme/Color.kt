@@ -1,4 +1,4 @@
-package com.mabrouk.mohamed.cardscanner.ui.theme
+package com.mabrouk.mohamed.cardscanner.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

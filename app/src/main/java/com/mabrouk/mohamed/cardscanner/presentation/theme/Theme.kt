@@ -1,4 +1,4 @@
-package com.mabrouk.mohamed.cardscanner.ui.theme
+package com.mabrouk.mohamed.cardscanner.presentation.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -41,7 +41,7 @@ fun CardScanner_NewTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = typography1,
         content = content
     )
 }

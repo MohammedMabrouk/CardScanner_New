@@ -1,4 +1,4 @@
-package com.mabrouk.mohamed.cardscanner
+package com.mabrouk.mohamed.cardscanner.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import com.mabrouk.mohamed.cardscanner.ui.theme.CardScanner_NewTheme
+import com.mabrouk.mohamed.cardscanner.presentation.theme.CardScanner_NewTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +57,7 @@ fun GreetingPreview() {
 
 // Plan
 
-// todo: fix app icon 
+// todo: fix app icon
 /*
 * Screens :
 * (1) Scan
