@@ -3,28 +3,29 @@ package com.mabrouk.mohamed.cardscanner.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.mabrouk.mohamed.cardscanner.presentation.screens.OperatorScreen
+import com.mabrouk.mohamed.cardscanner.presentation.screens.ScanResultScreen
+import com.mabrouk.mohamed.cardscanner.presentation.screens.ScanScreen
+import com.mabrouk.mohamed.cardscanner.presentation.screens.Screen
 import com.mabrouk.mohamed.cardscanner.presentation.theme.CardScanner_NewTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
             CardScanner_NewTheme {
+                val navController = rememberNavController()
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    NavigationComponent(Modifier.padding(innerPadding), navController)
                 }
             }
         }
@@ -32,28 +33,17 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(
-    showBackground = true,
-    device = Devices.PIXEL,
-    name = "test",
-    showSystemUi = true
-)
-
-@Composable
-fun GreetingPreview() {
-    CardScanner_NewTheme {
-        Greeting("Android")
+fun NavigationComponent(modifier: Modifier, navController: NavHostController) {
+    NavHost(
+        modifier = modifier,
+        navController = navController,
+        startDestination = Screen.Scan.route
+    ) {
+        composable(Screen.Scan.route) { ScanScreen(navController) }
+        composable(Screen.ScanResult.route) { ScanResultScreen(navController) }
+        composable(Screen.Operator.route) { OperatorScreen(navController) }
     }
 }
-
-
 
 // Plan
 
@@ -70,9 +60,12 @@ fun GreetingPreview() {
 *
 *
 * possible addons:
+* splash screen
 * ارقام الاختصارات
 * push notifications
 * analytics
 * crashlytics
+* in-app update
+* in-app review
 *
 * */

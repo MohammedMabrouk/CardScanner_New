@@ -22,6 +22,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.mabrouk.mohamed.cardscanner.R
 import com.mabrouk.mohamed.cardscanner.presentation.compose.ActionButton
 import com.mabrouk.mohamed.cardscanner.presentation.theme.White
@@ -30,7 +32,7 @@ import com.mabrouk.mohamed.cardscanner.presentation.theme.typography1
 
 @Composable
 fun ScanResultScreen(
-
+    navController: NavHostController,
 ) {
     Box(
         modifier = Modifier.fillMaxSize()
@@ -92,5 +94,5 @@ fun ScanResultScreen(
 @Composable
 @Preview(showBackground = true)
 fun ScanResultScreenPreview() {
-    ScanResultScreen()
+    ScanResultScreen(rememberNavController())
 }

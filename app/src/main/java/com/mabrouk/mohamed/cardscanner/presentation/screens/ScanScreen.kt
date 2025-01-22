@@ -1,5 +1,10 @@
 package com.mabrouk.mohamed.cardscanner.presentation.screens
 
+import android.Manifest
+import android.graphics.Bitmap
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.launch
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,6 +20,10 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -22,15 +31,36 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
 import com.mabrouk.mohamed.cardscanner.R
 import com.mabrouk.mohamed.cardscanner.presentation.compose.ActionButton
 import com.mabrouk.mohamed.cardscanner.presentation.theme.White
 import com.mabrouk.mohamed.cardscanner.presentation.theme.typography1
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun ScanScreen(
-
+    navController: NavHostController,
 ) {
+    var bitmap: Bitmap? by remember { mutableStateOf(null) }
+    val cameraPermissionState = rememberPermissionState(Manifest.permission.CAMERA)
+
+    // Camera launcher
+    val takePictureLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.TakePicturePreview()
+    ) { capturedBitmap ->
+        if (capturedBitmap != null) {
+            bitmap = capturedBitmap
+            bitmap?.let {
+
+            }
+        }
+    }
+
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -78,7 +108,13 @@ fun ScanScreen(
                 )
                 ActionButton(
                     modifier = Modifier.padding(top = 30.dp),
-                    onClick = {},
+                    onClick = {
+                        if (cameraPermissionState.status.isGranted) {
+                            takePictureLauncher.launch()
+                        } else {
+                            cameraPermissionState.launchPermissionRequest()
+                        }
+                    },
                     text = stringResource(id = R.string.start_btn)
                 )
             }
@@ -89,5 +125,5 @@ fun ScanScreen(
 @Composable
 @Preview(showBackground = true)
 fun ScanScreenPreview() {
-    ScanScreen()
+    ScanScreen(rememberNavController())
 }

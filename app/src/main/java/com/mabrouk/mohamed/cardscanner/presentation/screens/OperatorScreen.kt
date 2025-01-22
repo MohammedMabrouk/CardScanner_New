@@ -20,6 +20,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.mabrouk.mohamed.cardscanner.R
 import com.mabrouk.mohamed.cardscanner.presentation.compose.SelectionButton
 import com.mabrouk.mohamed.cardscanner.presentation.theme.White
@@ -28,7 +30,7 @@ import com.mabrouk.mohamed.cardscanner.presentation.theme.typography1
 
 @Composable
 fun OperatorScreen(
-
+    navController: NavHostController,
 ) {
     Box(
         modifier = Modifier.fillMaxSize()
@@ -106,5 +108,5 @@ fun OperatorScreen(
 @Composable
 @Preview(showBackground = true)
 fun OperatorScreenPreview() {
-    OperatorScreen()
+    OperatorScreen(rememberNavController())
 }
