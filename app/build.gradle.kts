@@ -1,6 +1,11 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
+    id("kotlin-parcelize")
+    alias(libs.plugins.ksp)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -11,8 +16,8 @@ android {
         applicationId = "com.mabrouk.mohamed.cardscanner"
         minSdk = 23
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = Integer.parseInt(project.properties["VERSION_CODE"].toString())
+        versionName = project.properties["VERSION_NAME"] as String
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -40,25 +45,92 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.14"
     }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    hilt {
+        enableAggregatingTask = true
+    }
+    kotlin {
+        sourceSets.configureEach {
+            kotlin.srcDir(layout.buildDirectory.files("generated/ksp/$name/kotlin/"))
+        }
+        sourceSets.all {
+            languageSettings {
+                languageVersion = "2.0"
+            }
+        }
+    }
+    android {
+        androidResources.noCompress("tflite")
+    }
+
+    // Do NOT compress tflite model files (need to call out to developers!)
+    aaptOptions.noCompress("tflite")
 }
 
 dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+
+    // compose
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.navigation.compose)
+
+    // splash screen
+    implementation(libs.splash.screen)
+
+    // di
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    implementation(libs.hilt.navigation.compose)
+
+    // Google Play
+    implementation(libs.app.review)
+    implementation(libs.app.update)
+
+    // google services
+    implementation(libs.google.services)
+
+    // firebase
+    implementation(libs.firebase.cloud.messaging)
+
+    // tensorFlow
+//    implementation(libs.tensorflow)
+//    implementation(libs.tensorflow.gpu)
+//    implementation(libs.tensorflow.gpu.api)
+//    implementation(libs.tensorflow.gpu.delegate)
+//    implementation(libs.tensorflow.metadata)
+//    implementation(libs.tensorflow.support)
+//    implementation(libs.tensorflow.api)
+//    implementation(libs.tensorflow.select)
+
+    // ML Kit
+    implementation(libs.mlkit)
+
+    // Timber
+    implementation(libs.timber)
+
+    // datastore
+    implementation(libs.datastore.preferences)
+
+    // permissions
+    implementation(libs.accompanist.permissions)
+
+    // lottie
+    implementation(libs.lottie.compose)
+
+    // testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
