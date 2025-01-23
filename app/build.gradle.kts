@@ -2,7 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
     id("kotlin-parcelize")
+    alias(libs.plugins.ksp)
     id("com.google.gms.google-services")
 }
 
@@ -43,13 +45,32 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.14"
     }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    hilt {
+        enableAggregatingTask = true
+    }
+    kotlin {
+        sourceSets.configureEach {
+            kotlin.srcDir(layout.buildDirectory.files("generated/ksp/$name/kotlin/"))
+        }
+        sourceSets.all {
+            languageSettings {
+                languageVersion = "2.0"
+            }
+        }
+    }
+    android {
+        androidResources.noCompress("tflite")
+    }
+
+    // Do NOT compress tflite model files (need to call out to developers!)
+    aaptOptions.noCompress("tflite")
 }
 
 dependencies {
@@ -69,6 +90,11 @@ dependencies {
     // splash screen
     implementation(libs.splash.screen)
 
+    // di
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    implementation(libs.hilt.navigation.compose)
+
     // Google Play
     implementation(libs.app.review)
     implementation(libs.app.update)
@@ -80,14 +106,17 @@ dependencies {
     implementation(libs.firebase.cloud.messaging)
 
     // tensorFlow
-    implementation(libs.tensorflow)
-    implementation(libs.tensorflow.gpu)
-    implementation(libs.tensorflow.gpu.api)
-    implementation(libs.tensorflow.gpu.delegate)
-    implementation(libs.tensorflow.metadata)
-    implementation(libs.tensorflow.support)
-    implementation(libs.tensorflow.api)
-    implementation(libs.tensorflow.select)
+//    implementation(libs.tensorflow)
+//    implementation(libs.tensorflow.gpu)
+//    implementation(libs.tensorflow.gpu.api)
+//    implementation(libs.tensorflow.gpu.delegate)
+//    implementation(libs.tensorflow.metadata)
+//    implementation(libs.tensorflow.support)
+//    implementation(libs.tensorflow.api)
+//    implementation(libs.tensorflow.select)
+
+    // ML Kit
+    implementation(libs.mlkit)
 
     // Timber
     implementation(libs.timber)

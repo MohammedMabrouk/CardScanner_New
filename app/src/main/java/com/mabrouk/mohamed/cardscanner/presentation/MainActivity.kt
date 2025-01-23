@@ -14,10 +14,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.mabrouk.mohamed.cardscanner.presentation.screens.OperatorScreen
 import com.mabrouk.mohamed.cardscanner.presentation.screens.ScanResultScreen
-import com.mabrouk.mohamed.cardscanner.presentation.screens.ScanScreen
+import com.mabrouk.mohamed.cardscanner.presentation.screens.scan.ScanScreen
 import com.mabrouk.mohamed.cardscanner.presentation.screens.Screen
 import com.mabrouk.mohamed.cardscanner.presentation.theme.CardScanner_NewTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

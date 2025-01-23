@@ -1,6 +1,7 @@
 [versions]
 agp = "8.5.0"
-kotlin = "1.9.0"
+kotlin = "1.9.24"
+ksp = "1.9.24-1.0.20"
 coreKtx = "1.10.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
@@ -27,6 +28,9 @@ tensorflow-gpu-delegate = "0.4.4"
 firebase-messaging = "24.1.0"
 google-services = "4.4.2"
 google-services-plugin = "4.4.2"
+hilt = "2.51.1"
+hiltNavigationCompose = "1.2.0"
+mlkit = "16.0.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -51,6 +55,9 @@ splash-screen = { module = "androidx.core:core-splashscreen", version.ref = "spl
 datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
 lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottie" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 #tensorflow
 tensorflow = { module = "org.tensorflow:tensorflow-lite", version.ref = "tensorflow" }
 tensorflow-gpu = { module = "org.tensorflow:tensorflow-lite-gpu", version.ref = "tensorflow-gpu" }
@@ -60,6 +67,8 @@ tensorflow-metadata = { module = "org.tensorflow:tensorflow-lite-metadata", vers
 tensorflow-support = { module = "org.tensorflow:tensorflow-lite-support", version.ref = "tensorflow-support" }
 tensorflow-api = { module = "org.tensorflow:tensorflow-lite-api", version.ref = "tensorflow-api" }
 tensorflow-select = { module = "org.tensorflow:tensorflow-lite-select-tf-ops", version.ref = "tensorflow-select" }
+# ml kit
+mlkit = { module = "com.google.mlkit:text-recognition", version.ref = "mlkit" }
 #firebase
 firebase-cloud-messaging = { group = "com.google.firebase", name = "firebase-messaging", version.ref = "firebase-messaging"}
 # Google Services
@@ -68,6 +77,8 @@ google-services = { group = "com.google.gms", name = "google-services", version.
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+hilt-plugin = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 google-services-plugin = { id = "com.google.gms.google-services", version.ref = "google-services-plugin" }
 

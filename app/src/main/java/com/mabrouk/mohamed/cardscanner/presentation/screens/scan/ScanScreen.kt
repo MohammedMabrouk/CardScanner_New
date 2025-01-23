@@ -1,4 +1,4 @@
-package com.mabrouk.mohamed.cardscanner.presentation.screens
+package com.mabrouk.mohamed.cardscanner.presentation.screens.scan
 
 import android.Manifest
 import android.graphics.Bitmap
@@ -20,6 +20,7 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,6 +32,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -45,7 +47,9 @@ import com.mabrouk.mohamed.cardscanner.presentation.theme.typography1
 @Composable
 fun ScanScreen(
     navController: NavHostController,
+    viewModel: ScanViewModel = hiltViewModel(),
 ) {
+    val detectorResult by viewModel.detectorResult.collectAsState()
     var bitmap: Bitmap? by remember { mutableStateOf(null) }
     val cameraPermissionState = rememberPermissionState(Manifest.permission.CAMERA)
 
@@ -56,7 +60,7 @@ fun ScanScreen(
         if (capturedBitmap != null) {
             bitmap = capturedBitmap
             bitmap?.let {
-
+                viewModel.processImage(it)
             }
         }
     }
