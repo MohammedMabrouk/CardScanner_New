@@ -17,7 +17,7 @@
 
     <!-- Messages Strings -->
     <string name="number_found">تم الحصول على رقم الشحن.</string>
-    <string name="number_not_found">لم يتم الحصول على رقم الشحن، يرجى استخدام صورة مقربة للكارت.</string>
+    <string name="number_not_found">لم يتم الحصول على رقم الشحن، يرجى اعادة المحاولة.</string>
 
     <!-- Operator Screen -->
     <string name="select_operator">أختر الشبكة</string>

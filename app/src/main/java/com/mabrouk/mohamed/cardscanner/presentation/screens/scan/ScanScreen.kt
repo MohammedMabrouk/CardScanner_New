@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
@@ -35,13 +36,17 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.airbnb.lottie.compose.LottieConstants
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.mabrouk.mohamed.cardscanner.R
 import com.mabrouk.mohamed.cardscanner.presentation.compose.ActionButton
+import com.mabrouk.mohamed.cardscanner.presentation.compose.AnimatedImage
+import com.mabrouk.mohamed.cardscanner.presentation.screens.Screen
 import com.mabrouk.mohamed.cardscanner.presentation.theme.White
 import com.mabrouk.mohamed.cardscanner.presentation.theme.typography1
+import com.mabrouk.mohamed.cardscanner.presentation.utils.Resource
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -95,6 +100,7 @@ fun ScanScreen(
                 )
             }
 
+            // content
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -102,25 +108,76 @@ fun ScanScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Image(
-                    modifier = Modifier
-                        .height(250.dp)
-                        .width(160.dp),
-                    painter = painterResource(id = R.mipmap.logo),
-                    contentDescription = "",
-                    contentScale = ContentScale.FillBounds
-                )
-                ActionButton(
-                    modifier = Modifier.padding(top = 30.dp),
-                    onClick = {
-                        if (cameraPermissionState.status.isGranted) {
-                            takePictureLauncher.launch()
-                        } else {
-                            cameraPermissionState.launchPermissionRequest()
+                when (detectorResult) {
+                    is Resource.Empty -> {
+                        Image(
+                            modifier = Modifier
+                                .height(250.dp)
+                                .width(160.dp),
+                            painter = painterResource(id = R.mipmap.logo),
+                            contentDescription = "",
+                            contentScale = ContentScale.FillBounds
+                        )
+                        ActionButton(
+                            modifier = Modifier.padding(top = 30.dp),
+                            onClick = {
+                                if (cameraPermissionState.status.isGranted) {
+                                    takePictureLauncher.launch()
+                                } else {
+                                    cameraPermissionState.launchPermissionRequest()
+                                }
+                            },
+                            text = stringResource(id = R.string.start_btn)
+                        )
+                    }
+
+                    is Resource.Error -> {
+                        AnimatedImage(
+                            modifier = Modifier.size(90.dp),
+                            animationResource = R.raw.failed,
+                            iterations = 1,
+                            isPlaying = true
+                        ) {}
+                        Text(
+                            modifier = Modifier
+                                .padding(top = 10.dp)
+                                .padding(horizontal = 16.dp),
+                            text = stringResource(id = R.string.number_not_found),
+                            style = typography1.labelSmall,
+                            color = White
+                        )
+                        ActionButton(
+                            modifier = Modifier.padding(top = 20.dp),
+                            onClick = { viewModel.resetResult() },
+                            text = stringResource(id = R.string.new_scan_btn)
+                        )
+                    }
+
+                    is Resource.Loading -> {
+                        AnimatedImage(
+                            modifier = Modifier
+                                .height(250.dp)
+                                .width(160.dp),
+                            animationResource = R.raw.loading,
+                            iterations = LottieConstants.IterateForever,
+                            isPlaying = true
+                        ) {}
+                    }
+
+                    is Resource.Success -> {
+                        AnimatedImage(
+                            modifier = Modifier
+                                .height(250.dp)
+                                .width(160.dp),
+                            animationResource = R.raw.success,
+                            iterations = 1,
+                            isPlaying = true
+                        ) {
+                            navController.navigate(Screen.Operator.route)
+                            viewModel.resetResult()
                         }
-                    },
-                    text = stringResource(id = R.string.start_btn)
-                )
+                    }
+                }
             }
         }
     }
