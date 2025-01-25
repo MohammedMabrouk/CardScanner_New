@@ -173,7 +173,7 @@ fun ScanScreen(
                             iterations = 1,
                             isPlaying = true
                         ) {
-                            navController.navigate(Screen.Operator.route)
+                            navController.navigate("${Screen.Operator.route}/${(detectorResult as Resource.Success<String>).data}")
                             viewModel.resetResult()
                         }
                     }

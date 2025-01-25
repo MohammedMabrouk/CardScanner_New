@@ -30,7 +30,9 @@ import com.mabrouk.mohamed.cardscanner.presentation.theme.typography1
 
 @Composable
 fun OperatorScreen(
+    detectedNumber: String,
     navController: NavHostController,
+    onOperatorClick: (OperatorType, String) -> Unit,
 ) {
     Box(
         modifier = Modifier.fillMaxSize()
@@ -72,7 +74,7 @@ fun OperatorScreen(
             ) {
                 SelectionButton(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = {},
+                    onClick = { onOperatorClick(OperatorType.ETISALAT, detectedNumber) },
                     text = stringResource(id = R.string.etisalat),
                     iconResource = R.drawable.ic_etisalat
                 )
@@ -80,7 +82,7 @@ fun OperatorScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 30.dp),
-                    onClick = {},
+                    onClick = { onOperatorClick(OperatorType.VODAFONE, detectedNumber) },
                     text = stringResource(id = R.string.vodafone),
                     iconResource = R.drawable.ic_vodafone
                 )
@@ -88,7 +90,7 @@ fun OperatorScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 30.dp),
-                    onClick = {},
+                    onClick = { onOperatorClick(OperatorType.ORANGE, detectedNumber) },
                     text = stringResource(id = R.string.orange),
                     iconResource = R.drawable.ic_orange
                 )
@@ -96,7 +98,7 @@ fun OperatorScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 30.dp),
-                    onClick = {},
+                    onClick = { onOperatorClick(OperatorType.WE, detectedNumber) },
                     text = stringResource(id = R.string.we),
                     iconResource = R.drawable.ic_we
                 )
@@ -108,5 +110,12 @@ fun OperatorScreen(
 @Composable
 @Preview(showBackground = true)
 fun OperatorScreenPreview() {
-    OperatorScreen(rememberNavController())
+    OperatorScreen("123", rememberNavController()) { _, _ -> }
+}
+
+enum class OperatorType {
+    ETISALAT,
+    VODAFONE,
+    ORANGE,
+    WE
 }

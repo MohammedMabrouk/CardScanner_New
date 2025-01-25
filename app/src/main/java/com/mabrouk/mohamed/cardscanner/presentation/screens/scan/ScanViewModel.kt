@@ -41,7 +41,6 @@ class ScanViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-
     private fun getMaxString(texts: Text): String? {
         val blocks: List<Text.TextBlock> = texts.textBlocks
         var maxLength = 0
@@ -59,5 +58,9 @@ class ScanViewModel @Inject constructor() : ViewModel() {
             }
         }
         return maxLengthString
+    }
+
+    fun resetResult(){
+        _detectorResult.value = Resource.Empty
     }
 }
