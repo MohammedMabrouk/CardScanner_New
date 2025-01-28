@@ -6,4 +6,6 @@ plugins {
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.hilt.plugin) apply false
     alias(libs.plugins.google.services.plugin) apply false
+    alias(libs.plugins.crashlytics.gradle.plugin) apply false
+    alias(libs.plugins.compose.compiler) apply false
 }

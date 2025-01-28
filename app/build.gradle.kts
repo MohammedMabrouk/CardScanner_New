@@ -6,6 +6,8 @@ plugins {
     id("kotlin-parcelize")
     alias(libs.plugins.ksp)
     id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -103,7 +105,11 @@ dependencies {
     implementation(libs.google.services)
 
     // firebase
+//    implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.cloud.messaging)
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.analytics)
+
 
     // tensorFlow
 //    implementation(libs.tensorflow)
@@ -139,3 +145,5 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
+
+apply(plugin = "com.google.gms.google-services")
