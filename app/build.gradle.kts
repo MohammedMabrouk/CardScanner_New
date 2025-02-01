@@ -27,15 +27,28 @@ android {
         }
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file(project.properties["KEYSTORE_FILE"] as String)
+            storePassword = project.properties["KEYSTORE_PASSWORD"] as String
+            keyAlias = project.properties["KEY_ALIAS"] as String
+            keyPassword = project.properties["KEY_PASSWORD"] as String
+        }
+    }
+
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isDebuggable = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8

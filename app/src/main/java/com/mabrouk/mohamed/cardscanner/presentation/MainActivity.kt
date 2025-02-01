@@ -82,6 +82,7 @@ fun NavigationComponent(
 
 // todo: fix app icon
 /*
+settings screen
 * Screens :
 * (1) Scan
 * (2) Operator
