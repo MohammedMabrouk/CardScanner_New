@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1017950166279",
+    "firebase_url": "https://card-scanner-c91a2.firebaseio.com",
+    "project_id": "card-scanner-c91a2",
+    "storage_bucket": "card-scanner-c91a2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1017950166279:android:c39d92caf937aebd",
+        "android_client_info": {
+          "package_name": "com.mabrouk.mohamed.cardscanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1017950166279-cs5ldpt0pkb4qfif8ln4vc62a99mc98t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAKd-RpYAnoxvJY72Pafjme44mJbZQbr0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1017950166279-cs5ldpt0pkb4qfif8ln4vc62a99mc98t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
