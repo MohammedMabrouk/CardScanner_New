@@ -6,6 +6,8 @@ plugins {
     id("kotlin-parcelize")
     alias(libs.plugins.ksp)
     id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -25,15 +27,28 @@ android {
         }
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file(project.properties["KEYSTORE_FILE"] as String)
+            storePassword = project.properties["KEYSTORE_PASSWORD"] as String
+            keyAlias = project.properties["KEY_ALIAS"] as String
+            keyPassword = project.properties["KEY_PASSWORD"] as String
+        }
+    }
+
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isDebuggable = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -103,7 +118,11 @@ dependencies {
     implementation(libs.google.services)
 
     // firebase
+//    implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.cloud.messaging)
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.analytics)
+
 
     // tensorFlow
 //    implementation(libs.tensorflow)
@@ -139,3 +158,5 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
+
+apply(plugin = "com.google.gms.google-services")

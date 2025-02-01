@@ -18,7 +18,7 @@
 
     <!-- Messages Strings -->
     <string name="number_found">Got the number, click next.</string>
-    <string name="number_not_found">Number was not found, please try with a closer picture.</string>
+    <string name="number_not_found">Number was not found, please try again.</string>
 
     <!-- Operator Screen -->
     <string name="select_operator">Select operator</string>
